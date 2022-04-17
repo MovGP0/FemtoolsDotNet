@@ -23,6 +23,8 @@ public static class TensorExtensionsTests
                 .Average(1)
                 .ToVector();
 
+            Console.WriteLine($"[{average[0]},{average[1]},{average[2]},{average[3]}]");
+
             Assert.Multiple(() =>
             {
                 Assert.That(average[0], Is.EqualTo(1.5d));
@@ -47,6 +49,7 @@ public static class TensorExtensionsTests
                 .ToTensor()
                 .Average()
                 .ToVector();
+            Console.WriteLine($"[{average[0]},{average[1]},{average[2]}]");
 
             Assert.Multiple(() =>
             {
