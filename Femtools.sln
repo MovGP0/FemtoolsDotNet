@@ -1,0 +1,36 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.1.32328.378
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Femtools", "Femtools\Femtools.csproj", "{07A9707C-F2F4-400A-9D7F-4233DF126631}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Femtools.UnitTests", "Femtools.UnitTests\Femtools.UnitTests.csproj", "{42F06649-53D9-47EC-B807-565065181F3E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{ABE279A3-E1B1-40C7-B163-E28EBFEF1975}"
+	ProjectSection(SolutionItems) = preProject
+		readme.md = readme.md
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{07A9707C-F2F4-400A-9D7F-4233DF126631}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{07A9707C-F2F4-400A-9D7F-4233DF126631}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{07A9707C-F2F4-400A-9D7F-4233DF126631}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{07A9707C-F2F4-400A-9D7F-4233DF126631}.Release|Any CPU.Build.0 = Release|Any CPU
+		{42F06649-53D9-47EC-B807-565065181F3E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{42F06649-53D9-47EC-B807-565065181F3E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{42F06649-53D9-47EC-B807-565065181F3E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{42F06649-53D9-47EC-B807-565065181F3E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {58CFB4AB-0F52-46B0-A108-B594C490EAF6}
+	EndGlobalSection
+EndGlobal
