@@ -1,4 +1,5 @@
-﻿using FluentAssertions;
+﻿using System.Diagnostics;
+using FluentAssertions;
 using FluentAssertions.Execution;
 using NUnit.Framework;
 using static TorchSharp.torch;
@@ -102,6 +103,51 @@ public sealed class LeviCivitaTests
             ((long)result[0]).Should().Be((long)expected[0]);
             ((long)result[1]).Should().Be((long)expected[1]);
             ((long)result[2]).Should().Be((long)expected[2]);
+        }
+    }
+
+    public sealed class MatrixInverseTests
+    {
+        /// <summary>
+        /// calculates the factorial n!
+        /// </summary>
+        /// <param name="n">a positive number</param>
+        /// <returns>n!</returns>
+        private static long Factorial(int n)
+        {
+            Debug.Assert(n >= 0);
+            var fact = 1L;
+            for (var x = 1L; x <= n; x++)
+            {
+                fact *= x;
+            }
+
+            return fact;
+        }
+
+        [Test]
+        public void ShouldCalculateAdjugateOfMatrix()
+        {
+            var ε = LeviCivita.OfRank(3).to_type(ScalarType.Float64);
+            var matrix = tensor(new[] { -3d, 2d, -5d, -1d, 0d, -2d, 3d, -4d, 1d }, new[] { 3L, 3L }, ScalarType.Float64);
+
+            var adjugate = einsum("jmn,ipq,mp,nq->ij", ε, ε, matrix, matrix) 
+                           / (double)Factorial((int)matrix.Dimensions);
+
+            var determinat = einsum("ijk,i,j,k->", ε, matrix[0], matrix[1], matrix[2]);
+            
+            using var scope = new AssertionScope();
+            ((double) determinat).Should().Be(-6d);
+
+            ((double)adjugate[0, 0]).Should().Be(-8d);
+            ((double)adjugate[0, 1]).Should().Be(18d);
+            ((double)adjugate[0, 2]).Should().Be(-4d);
+            ((double)adjugate[1, 0]).Should().Be(-5d);
+            ((double)adjugate[1, 1]).Should().Be(12d);
+            ((double)adjugate[1, 2]).Should().Be(-1d);
+            ((double)adjugate[2, 0]).Should().Be(4d);
+            ((double)adjugate[2, 1]).Should().Be(-6d);
+            ((double)adjugate[2, 2]).Should().Be(2d);
         }
     }
 }
