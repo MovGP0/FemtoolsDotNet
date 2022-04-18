@@ -1,6 +1,7 @@
 ﻿using FluentAssertions;
 using FluentAssertions.Execution;
 using NUnit.Framework;
+using static TorchSharp.torch;
 
 namespace Femtools.UnitTests;
 
@@ -69,6 +70,19 @@ public sealed class LeviCivitaTests
             ((long)ε4[1, 0, 2, 3]).Should().Be(-1L, "[1,0,2,3] is odd permutation");
             ((long)ε4[3, 2, 1, 0]).Should().Be(+1L, "[3,2,1,0] is even permutation");
             ((long)ε4[2, 1, 3, 2]).Should().Be(+0L, "[2,1,3,2] has repeating index");
+        }
+    }
+
+    public sealed class DeterminantTests
+    {
+        [Test]
+        public void ShouldCalculateDeterminantOfMatrix()
+        {
+            var ε = LeviCivita.OfRank(3);
+            var matrix = tensor(new [] {3L, 2L, 1L, 5L, 7L, 4L, 9L, 6L, 8L }, new[] {3L, 3L}, ScalarType.Int64);
+            var det = einsum("ijk,i,j,k->", ε, matrix[0], matrix[1], matrix[2]);
+            var result = (int)det;
+            result.Should().Be(55);
         }
     }
 }
