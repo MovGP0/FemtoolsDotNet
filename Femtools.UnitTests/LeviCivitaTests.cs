@@ -79,10 +79,29 @@ public sealed class LeviCivitaTests
         public void ShouldCalculateDeterminantOfMatrix()
         {
             var ε = LeviCivita.OfRank(3);
-            var matrix = tensor(new [] {3L, 2L, 1L, 5L, 7L, 4L, 9L, 6L, 8L }, new[] {3L, 3L}, ScalarType.Int64);
+            var matrix = tensor(new[] { 3L, 2L, 1L, 5L, 7L, 4L, 9L, 6L, 8L }, new[] { 3L, 3L }, ScalarType.Int64);
             var det = einsum("ijk,i,j,k->", ε, matrix[0], matrix[1], matrix[2]);
             var result = (int)det;
             result.Should().Be(55);
+        }
+    }
+
+    public sealed class CrossProductTests
+    {
+        [Test]
+        public void ShouldCalculateCrossProductOfTwoVectors()
+        {
+            var ε = LeviCivita.OfRank(3);
+            var a = tensor(new[] { 3L, -3L, 1L }, new[] { 3L }, ScalarType.Int64);
+            var b = tensor(new[] { 4L, 9L, 2L }, new[] { 3L }, ScalarType.Int64);
+            var expected = tensor(new[] { -15L, -2L, 39L }, new[] { 3L }, ScalarType.Int64);
+
+            var result = einsum("ijk,j,k->i", ε, a, b);
+
+            using var scope = new AssertionScope();
+            ((long)result[0]).Should().Be((long)expected[0]);
+            ((long)result[1]).Should().Be((long)expected[1]);
+            ((long)result[2]).Should().Be((long)expected[2]);
         }
     }
 }
