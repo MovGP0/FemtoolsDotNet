@@ -1,7 +1,7 @@
 ﻿using static System.Diagnostics.Debug;
 using static TorchSharp.torch;
 
-namespace Femtools;
+namespace Femtools.BTS;
 
 public sealed class BTS
 {

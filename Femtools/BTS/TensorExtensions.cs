@@ -1,6 +1,6 @@
 ﻿using static TorchSharp.torch;
 
-namespace Femtools;
+namespace Femtools.BTS;
 
 public static class TensorExtensions
 {
