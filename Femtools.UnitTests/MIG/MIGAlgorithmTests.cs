@@ -1,5 +1,4 @@
-﻿using Femtools.MIG;
-using NUnit.Framework;
+﻿using NUnit.Framework;
 
 namespace Femtools.UnitTests.MIG;
 

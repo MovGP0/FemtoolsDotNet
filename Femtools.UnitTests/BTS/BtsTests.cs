@@ -1,13 +1,12 @@
 ﻿using System.Runtime.CompilerServices;
-using Femtools.BTS;
 using NUnit.Framework;
 
 namespace Femtools.UnitTests;
 
-[TestOf(typeof(BTS.BTS))]
+[TestOf(typeof(BTS))]
 public sealed class BtsTests
 {
-    [TestOf(nameof(BTS.BTS.Calculate))]
+    [TestOf(nameof(BTS.Calculate))]
     public sealed class CalculateTests
     {
         [Test]
@@ -23,7 +22,7 @@ public sealed class BtsTests
                 {1d, 0d}
             };
 
-            var scores = BTS.BTS.Calculate(answers, frequencies);
+            var scores = BTS.Calculate(answers, frequencies);
 
             const double d = 0.00001d;
             const double expected = 0d;
@@ -49,7 +48,7 @@ public sealed class BtsTests
                 { 1.000d, 1.000d, 1.000d}
             };
 
-            var scores = BTS.BTS.Calculate(answers, frequencies, 1d);
+            var scores = BTS.Calculate(answers, frequencies, 1d);
             
             Console.WriteLine($"[{scores[0]}, {scores[1]}, {scores[2]}, {scores[3]}]");
 
@@ -82,8 +81,8 @@ public sealed class BtsTests
                 { 1.000d, 1.000d, 1.000d}
             };
 
-            var scores = BTS.BTS.Calculate(answers, frequencies, 1d);
-            var iScores = BTS.BTS.Calculate(answers, frequencies, 0d);
+            var scores = BTS.Calculate(answers, frequencies, 1d);
+            var iScores = BTS.Calculate(answers, frequencies, 0d);
             var pScores = (scores.ToTensor() - iScores.ToTensor()).ToVector();
             
             Console.WriteLine($"[{pScores[0]}, {pScores[1]}, {pScores[2]}, {pScores[3]}]");
@@ -122,7 +121,7 @@ public sealed class BtsTests
                 { 0.000d, 0.000d, 1.000d}
             };
 
-            var iScores = BTS.BTS.Calculate(answers, frequencies, 0d);
+            var iScores = BTS.Calculate(answers, frequencies, 0d);
 
             Console.WriteLine($"[{iScores[0]}, {iScores[1]}, {iScores[2]}, {iScores[3]}]");
 

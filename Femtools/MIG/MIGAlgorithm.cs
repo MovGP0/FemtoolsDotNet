@@ -1,4 +1,4 @@
-﻿namespace Femtools.MIG
+﻿namespace Femtools
 {
     public sealed class MIGAlgorithm
     {

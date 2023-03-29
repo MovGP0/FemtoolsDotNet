@@ -1,6 +1,6 @@
-namespace Femtools.MIG;
+namespace Femtools;
 
-public static class MathExtensions
+internal static class MathExtensions
 {
     private static Dictionary<int, long> cache = new();
 

@@ -1,5 +1,4 @@
-﻿using Femtools.BTS;
-using NUnit.Framework;
+﻿using NUnit.Framework;
 
 namespace Femtools.UnitTests;
 

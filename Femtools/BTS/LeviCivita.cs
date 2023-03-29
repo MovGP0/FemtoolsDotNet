@@ -1,6 +1,6 @@
 ﻿using static TorchSharp.torch;
 
-namespace Femtools.BTS;
+namespace Femtools;
 
 public static class LeviCivita
 {
@@ -23,9 +23,9 @@ public static class LeviCivita
 
         // permute over all positions of the tensor
         var permutations = CombinationsWithRepetition(a, a.Length);
-        foreach (var perm in permutations)
+        for(var i = 0; i < permutations.GetLength(0); i++)
         {
-            var pos = perm.ToArray();
+            var pos = GetRow(permutations, i);
             var idx = pos.Select(p => (TensorIndex)p).ToArray();
 
             // calculate the value at the given position
@@ -35,10 +35,28 @@ public static class LeviCivita
         return t;
     }
 
+    private static long[] GetRow(long[,] matrix, int rowIndex)
+    {
+        if (rowIndex < 0 || rowIndex >= matrix.GetLength(0))
+        {
+            throw new ArgumentOutOfRangeException(nameof(rowIndex), "Row index is out of range.");
+        }
+
+        var columns = matrix.GetLength(1);
+        var row = new long[columns];
+
+        for (var i = 0; i < columns; i++)
+        {
+            row[i] = matrix[rowIndex, i];
+        }
+
+        return row;
+    }
+
     /// <summary>
     /// Calculates the value of the Levi-Civita tensor at a given position.
     /// </summary>
-    public static long CalculateAt(params long[] a)
+    private static long CalculateAt(params long[] a)
     {
         var productSum = 1L;
         for (var i = 0; i < a.Length; i++)
@@ -52,22 +70,42 @@ public static class LeviCivita
     /// <summary>
     /// Calculates all permutations of the input including repetitions
     /// </summary>
-    private static IEnumerable<IEnumerable<long>> CombinationsWithRepetition(long[] input, int length)
+    private static long[,] CombinationsWithRepetition(long[] input, int length)
     {
         if (length <= 0)
         {
-            yield break;
+            return new long[0, 0];
         }
 
-        foreach (var i in input)
+        var inputSize = input.Length;
+        var result = new long[(int)Math.Pow(inputSize, length), length];
+        CombinationsWithRepetitionHelper(input, length, result, new long[length], 0, 0);
+        return result;
+    }
+
+    private static int CombinationsWithRepetitionHelper(
+        long[] input,
+        int length,
+        long[,] result,
+        long[] current,
+        int currentLength,
+        int resultIndex)
+    {
+        if (currentLength == length)
         {
-            if (length - 1 <= 0)
+            for (var i = 0; i < length; i++)
             {
-                yield return new long[] { i };
+                result[resultIndex, i] = current[i];
             }
-
-            foreach (var c in CombinationsWithRepetition(input, length - 1))
-                yield return c.Append(i);
+            return resultIndex + 1;
         }
+
+        foreach (var t1 in input)
+        {
+            current[currentLength] = t1;
+            resultIndex = CombinationsWithRepetitionHelper(input, length, result, current, currentLength + 1, resultIndex);
+        }
+
+        return resultIndex;
     }
 }

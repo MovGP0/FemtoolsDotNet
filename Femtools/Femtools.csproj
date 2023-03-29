@@ -10,6 +10,7 @@
     <PackageReference Include="libtorch-cpu-win-x64" Version="1.13.0.1" />
     <PackageReference Include="Numpy" Version="3.11.1.33" />
     <PackageReference Include="TorchSharp" Version="0.99.3" />
+    <PackageReference Include="MathNet.Numerics" Version="5.0.0" />
   </ItemGroup>
 
 </Project>
